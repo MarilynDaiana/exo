@@ -1,38 +1,52 @@
-# 📦 Dashboard Operativo - ExoLogística
+# 📦 ExoLogística - Sistema de Gestión Operativa y Control de Turnos
 
-Aplicación web interactiva para la gestión, monitoreo en tiempo real y registro histórico de métricas operativas en depósitos de logística. Diseñada para supervisores y equipos de operaciones.
+Sistema web para el control, registro y análisis en tiempo real de la operación logística, dotación de personal, distribución por sectores y métricas de producción por turno.
 
 ---
 
 ## 🚀 Características Principales
 
-- **📊 Resumen Operativo en Tiempo Real:** Visualización de KPIs clave como bultos preparados, cumplimiento de metas, productividad por persona, ausentismo y rechazos.
-- **📈 Gráficos Dinámicos:**
-  - Distribución de personal por sector (OLA, PTR, PU-9, Caddys, Pallets, Cierre) mediante gráficos de torta.
-  - Producción por tipo de picking y control de asistencia mediante gráficos de barras.
-- **📝 Carga de Datos del Turno:** Formulario intuitivo para el ingreso diario de la dotación y métricas de producción por supervisor/a.
-- **📁 Histórico de Turnos:** Registro y consulta de turnos pasados con badges de estado según el porcentaje de cumplimiento de objetivos.
-- **📄 Exportación a PDF:** Generación e impresión instantánea de reportes ejecutivos en formato PDF.
+- **📝 Carga de Datos Operativos (`operational-data.tsx`)**:
+  - Registro parametrizado por fecha, turno, rango horario y supervisores a cargo.
+  - Gestión de asistencia y ausentismo multinivel (Operativos, Clarkistas, Administración/Efectivos).
+  - Distribución dinámica y reactiva de personal por sectores (`OLA`, `PTR`, `PU-9`, `PU-11`, `CADDYS`, `PALLETS`, `GUARDADO`, etc.).
+  - Validación automática de personas sin asignar y límites máximos según el total de presentes.
+  - Registro de producción en bultos por sector (`PICKING TRADICIONAL`, `PU`, `PTR`) con cálculo dinámico de % de cumplimiento.
+  - Guardado automático de borradores en el almacenamiento local (`localStorage`).
+
+- **📊 Dashboard y Métricas de Control (`dashboard.tsx`)**:
+  - Indicadores clave (KPIs): Total Presentes, % Ausentismo, Bultos Preparados, Cumplimiento de Objetivo.
+  - Visualización gráfica de la distribución de personal por sector.
+  - Tabla interactiva de ausentismo detallado por grupo.
+  - Monitoreo del estado de etapas críticas (ej. Estado PTR: *Stage Lleno*, *Falta armar Stage*, etc.).
+
+- **📄 Exportación e Informes (`export.tsx`)**:
+  - Generación de reportes formateados para impresión o descarga.
+  - Exportación de datos operativos a formato **PDF** y Microsoft **Excel** (`.xlsx`).
+  - Histórico de reportes guardados con opciones de visualización y filtrado.
 
 ---
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Frontend:** [React](https://react.dev/) / [Next.js](https://nextjs.org/)
-- **Lenguaje:** TypeScript
-- **Estilos:** CSS3 / Tailwind CSS
-- **Visualización de Datos:** [Recharts](https://recharts.org/)
-- **Iconos:** [Lucide React](https://lucide.dev/)
-- **Exportación de Reportes:** `html2canvas` + `jspdf`
-- **Control de Versiones:** Git & GitHub
+- **Framework**: [Next.js](https://nextjs.org/) (App Router, React 18+)
+- **Lenguaje**: [TypeScript](https://www.typescriptlang.org/)
+- **Estilos**: Tailwind CSS / CSS Modules
+- **Iconos**: [Lucide React](https://lucide.dev/)
+- **Almacenamiento Local**: Web Storage API (`localStorage`)
 
 ---
 
-## 🔧 Instalación y Configuración Local
+## 📂 Estructura del Proyecto
 
-Sigue estos pasos para clonar y ejecutar el proyecto en tu máquina local:
-
-1. **Clonar el repositorio:**
-   ```bash
-   git clone [https://github.com/MarilynDaiana/exo.git](https://github.com/MarilynDaiana/exo.git)
-   cd exo
+```text
+src/
+├── components/
+│   ├── operational-data.tsx   # Formulario principal de carga de datos y asistencia
+│   ├── dashboard.tsx          # Panel principal de KPIs y gráficos
+│   └── export.tsx             # Módulo de exportación a PDF / Excel
+├── app/
+│   ├── page.tsx               # Vista principal e integración de módulos
+│   └── layout.tsx             # Layout global de la aplicación
+└── types/
+    └── index.ts               # Definición de interfaces TypeScript
